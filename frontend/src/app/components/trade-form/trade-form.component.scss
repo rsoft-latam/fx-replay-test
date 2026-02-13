@@ -1,0 +1,104 @@
+.trade-form-container {
+  padding: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 0;
+
+  p {
+    margin-top: 16px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+mat-card {
+  padding: 24px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.market-price-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: #e3f2fd;
+  border-radius: 8px;
+  min-width: 180px;
+  height: 56px;
+
+  .label {
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.54);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .value {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Roboto Mono', monospace;
+    color: #1565c0;
+  }
+}
+
+.market-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fff3e0;
+  border-radius: 8px;
+  color: #e65100;
+  font-size: 14px;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+// Spinner inside button
+button mat-spinner {
+  display: inline-block;
+}
+
+::ng-deep button mat-spinner svg {
+  stroke: white !important;
+}
