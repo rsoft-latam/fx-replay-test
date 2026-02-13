@@ -1,0 +1,117 @@
+<div class="trade-list-container">
+  <div class="header">
+    <h1>Trade Orders</h1>
+    <button mat-flat-button color="primary" (click)="navigateToCreate()">
+      <mat-icon>add</mat-icon>
+      Nueva Orden
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="spinner-container">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p>Cargando órdenes...</p>
+    </div>
+  }
+
+  <div class="table-container" [class.hidden]="loading">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let trade">
+          <span class="mono" [matTooltip]="trade.id || ''">
+            {{ shortId(trade.id) }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pair">
+        <th mat-header-cell *matHeaderCellDef>Pair</th>
+        <td mat-cell *matCellDef="let trade">
+          <strong>{{ trade.pair }}</strong>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="side">
+        <th mat-header-cell *matHeaderCellDef>Side</th>
+        <td mat-cell *matCellDef="let trade">
+          <span class="chip" [ngClass]="getSideClass(trade.side)">
+            {{ trade.side | uppercase }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let trade">
+          {{ trade.type | uppercase }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let trade" class="number-cell">
+          {{ trade.amount }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let trade" class="number-cell">
+          {{ trade.price }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let trade">
+          <span class="chip" [ngClass]="getStatusClass(trade.status)">
+            {{ trade.status | uppercase }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created</th>
+        <td mat-cell *matCellDef="let trade">
+          {{ trade.createdAt | date:'short' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let trade">
+          <button mat-icon-button color="primary" matTooltip="Editar"
+                  (click)="editTrade(trade)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" matTooltip="Eliminar"
+                  (click)="deleteTrade(trade)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row no-data" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          @if (!loading) {
+            No se encontraron órdenes.
+          }
+        </td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25]"
+      [pageIndex]="currentPage"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>

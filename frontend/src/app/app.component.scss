@@ -1,0 +1,15 @@
+mat-toolbar {
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.toolbar-title {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+main {
+  min-height: calc(100vh - 64px);
+  background: #fafafa;
+}

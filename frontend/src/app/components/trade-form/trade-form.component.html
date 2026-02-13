@@ -1,0 +1,116 @@
+<div class="trade-form-container">
+  <div class="header">
+    <button mat-icon-button (click)="cancel()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>{{ isEditMode ? 'Editar Orden' : 'Nueva Orden' }}</h1>
+  </div>
+
+  @if (loading) {
+    <div class="spinner-container">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p>Cargando orden...</p>
+    </div>
+  } @else {
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Par</mat-label>
+              <mat-select formControlName="pair">
+                @for (pair of pairs; track pair) {
+                  <mat-option [value]="pair">{{ pair }}</mat-option>
+                }
+              </mat-select>
+              @if (form.get('pair')?.hasError('required')) {
+                <mat-error>Par es requerido</mat-error>
+              }
+            </mat-form-field>
+
+            @if (currentMarketPrice !== null) {
+              <div class="market-price-info">
+                <span class="label">Precio de Mercado:</span>
+                <span class="value">{{ currentMarketPrice }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Side</mat-label>
+              <mat-select formControlName="side">
+                @for (side of sides; track side) {
+                  <mat-option [value]="side">{{ side | uppercase }}</mat-option>
+                }
+              </mat-select>
+              @if (form.get('side')?.hasError('required')) {
+                <mat-error>Side es requerido</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Tipo de Orden</mat-label>
+              <mat-select formControlName="type">
+                @for (type of orderTypes; track type) {
+                  <mat-option [value]="type">{{ type | uppercase }}</mat-option>
+                }
+              </mat-select>
+              @if (form.get('type')?.hasError('required')) {
+                <mat-error>Tipo es requerido</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Amount</mat-label>
+              <input matInput type="number" formControlName="amount" step="0.0001">
+              @if (form.get('amount')?.hasError('required')) {
+                <mat-error>Amount es requerido</mat-error>
+              }
+              @if (form.get('amount')?.hasError('min')) {
+                <mat-error>Amount debe ser mayor a 0</mat-error>
+              }
+            </mat-form-field>
+
+            @if (!isMarketType) {
+              <mat-form-field appearance="outline">
+                <mat-label>Precio</mat-label>
+                <input matInput type="number" formControlName="price" step="0.01">
+                @if (form.get('price')?.hasError('required')) {
+                  <mat-error>Precio es requerido</mat-error>
+                }
+                @if (form.get('price')?.hasError('min')) {
+                  <mat-error>Precio debe ser mayor o igual a 0</mat-error>
+                }
+                @if (form.get('price')?.hasError('priceRule')) {
+                  <mat-error>{{ form.get('price')?.getError('priceRule') }}</mat-error>
+                }
+              </mat-form-field>
+            }
+          </div>
+
+          @if (isMarketType) {
+            <p class="market-notice">
+              <mat-icon>info</mat-icon>
+              Las órdenes de tipo Market se ejecutan al precio de mercado actual.
+            </p>
+          }
+
+          <div class="form-actions">
+            <button mat-button type="button" (click)="cancel()">Cancelar</button>
+            <button mat-flat-button color="primary" type="submit"
+                    [disabled]="form.invalid || saving">
+              @if (saving) {
+                <mat-spinner diameter="20"></mat-spinner>
+              } @else {
+                {{ isEditMode ? 'Actualizar' : 'Crear Orden' }}
+              }
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

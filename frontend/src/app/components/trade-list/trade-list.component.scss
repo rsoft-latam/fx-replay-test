@@ -1,0 +1,95 @@
+.trade-list-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 0;
+
+  p {
+    margin-top: 16px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+  &.hidden {
+    display: none;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+.mono {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.number-cell {
+  font-family: 'Roboto Mono', monospace;
+  text-align: right;
+}
+
+.chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.chip-buy {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.chip-sell {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.chip-open {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.chip-executed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.chip-cancelled {
+  background-color: #fafafa;
+  color: #757575;
+}
+
+.no-data td {
+  text-align: center;
+  padding: 48px 0;
+  color: rgba(0, 0, 0, 0.54);
+}
